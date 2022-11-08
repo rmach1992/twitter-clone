@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.like){
-       handleLikeClick(e.target.dataset.like) 
+        handleLikeClick(e.target.dataset.like) 
     }
     else if(e.target.dataset.retweet){
         handleRetweetClick(e.target.dataset.retweet)
@@ -20,7 +20,7 @@ document.addEventListener('click', function(e){
         handleTweetBtnClick()
     }
     else if(e.target.id === 'reply-btn'){
-        handleReplyBtnClick()
+        handleReplyBtnClick(e.target.dataset.replybtn)
     }
 })
  
@@ -58,8 +58,8 @@ function handleReplyClick(replyId){
     document.getElementById(`replies-${replyId}`).classList.toggle('hidden')
 }
 
-function handleReplyBtnClick(){
-    alert('clicked')
+function handleReplyBtnClick(tweetId){
+    console.log(tweetId)
 }
 
 function handleTweetBtnClick(){
@@ -122,7 +122,7 @@ function getFeedHtml(){
                     <img src="images/scrimbalogo.png" class="profile-pic">
                     <textarea placeholder="Reply to tweet?" id="tweet-input"></textarea>
                 </div>
-                <button id="reply-btn">Reply</button>
+                <button id="reply-btn" data-replybtn="${tweet.uuid}">Reply</button>
             </div>`
         }
         
