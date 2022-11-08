@@ -1,6 +1,5 @@
 //Stretch goals
 //Save tweets, likes and retweets to localStorage
-//Allow a user to delete a tweet
 
 import { tweetsData } from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
@@ -20,6 +19,9 @@ document.addEventListener('click', function(e){
     }
     else if(e.target.id === 'reply-btn'){
         handleReplyBtnClick(e.target.dataset.replybtn)
+    }
+    else if(e.target.dataset.trash) {
+        handleDeleteBtnClick(e.target.dataset.trash)
     }
 })
  
@@ -51,6 +53,19 @@ function handleRetweetClick(tweetId){
     }
     targetTweetObj.isRetweeted = !targetTweetObj.isRetweeted
     render() 
+}
+
+function handleDeleteBtnClick(tweetId){
+    if (confirm('Are you sure you want to delete?')) {
+        const targetTweetObj = tweetsData.filter(function(tweet){
+            return tweet.uuid === tweetId
+        })[0]
+        const index = tweetsData.indexOf(targetTweetObj)
+        if (index > -1) {
+            tweetsData.splice(index, 1)
+        }
+        render()
+    }
 }
 
 function handleReplyClick(replyId){
@@ -112,6 +127,12 @@ function getFeedHtml(){
         if (tweet.isRetweeted){
             retweetIconClass = 'retweeted'
         }
+
+        let deleteIconClass = 'fa-solid fa-trash'
+
+        if (tweet.handle != '@Scrimba') {
+            deleteIconClass = ''
+        }
         
         let repliesHtml = ''
         
@@ -165,6 +186,9 @@ function getFeedHtml(){
                                 data-retweet="${tweet.uuid}"
                                 ></i>
                                 ${tweet.retweets}
+                            </span>
+                            <span class="tweet-detail">
+                                <i class="${deleteIconClass}" data-trash=${tweet.uuid}></i>
                             </span>
                         </div>   
                     </div>            
