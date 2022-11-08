@@ -1,5 +1,4 @@
 //Stretch goals
-//Add ability to reply to a specific tweet
 //Save tweets, likes and retweets to localStorage
 //Allow a user to delete a tweet
 
@@ -59,7 +58,21 @@ function handleReplyClick(replyId){
 }
 
 function handleReplyBtnClick(tweetId){
-    console.log(tweetId)
+    const targetTweetObj = tweetsData.filter(function(tweet){
+        return tweet.uuid === tweetId
+    })[0]
+
+    const replyInput = document.getElementById(tweetId)
+    if(replyInput.value) {
+        targetTweetObj.replies.push({
+            handle: `@Scrimba`,
+            profilePic: `images/scrimbalogo.png`,
+            tweetText: replyInput.value,
+        })
+        render()
+        handleReplyClick(tweetId)
+        replyInput.value = ''
+    }
 }
 
 function handleTweetBtnClick(){
@@ -77,8 +90,8 @@ function handleTweetBtnClick(){
             isRetweeted: false,
             uuid: uuidv4()
         })
-    render()
-    tweetInput.value = ''
+        render()
+        tweetInput.value = ''
     }
 
 }
@@ -120,7 +133,7 @@ function getFeedHtml(){
             <div>
                 <div class="tweet-input-area">
                     <img src="images/scrimbalogo.png" class="profile-pic">
-                    <textarea placeholder="Reply to tweet?" id="tweet-input"></textarea>
+                    <textarea placeholder="Reply to tweet?" id="${tweet.uuid}"></textarea>
                 </div>
                 <button id="reply-btn" data-replybtn="${tweet.uuid}">Reply</button>
             </div>`
