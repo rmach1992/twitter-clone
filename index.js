@@ -19,6 +19,9 @@ document.addEventListener('click', function(e){
     else if(e.target.id === 'tweet-btn'){
         handleTweetBtnClick()
     }
+    else if(e.target.id === 'reply-btn'){
+        handleReplyBtnClick()
+    }
 })
  
 function handleLikeClick(tweetId){ 
@@ -53,6 +56,10 @@ function handleRetweetClick(tweetId){
 
 function handleReplyClick(replyId){
     document.getElementById(`replies-${replyId}`).classList.toggle('hidden')
+}
+
+function handleReplyBtnClick(){
+    alert('clicked')
 }
 
 function handleTweetBtnClick(){
@@ -95,7 +102,7 @@ function getFeedHtml(){
         
         let repliesHtml = ''
         
-        if(tweet.replies.length > 0){
+        if(tweet.replies.length >= 0){
             tweet.replies.forEach(function(reply){
                 repliesHtml+=`
                     <div class="tweet-reply">
@@ -109,6 +116,14 @@ function getFeedHtml(){
                     </div>
                     `
             })
+            repliesHtml+=`
+            <div>
+                <div class="tweet-input-area">
+                    <img src="images/scrimbalogo.png" class="profile-pic">
+                    <textarea placeholder="Reply to tweet?" id="tweet-input"></textarea>
+                </div>
+                <button id="reply-btn">Reply</button>
+            </div>`
         }
         
           
