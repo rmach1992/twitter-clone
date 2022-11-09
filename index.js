@@ -1,5 +1,6 @@
 //Stretch goals
-//Save tweets, likes and retweets to localStorage
+//Making data come from local storage
+//Ability to delete replies
 
 import { tweetsData } from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
@@ -80,8 +81,8 @@ function handleReplyBtnClick(tweetId){
     const replyInput = document.getElementById(tweetId)
     if(replyInput.value) {
         targetTweetObj.replies.push({
-            handle: `@Scrimba`,
-            profilePic: `images/scrimbalogo.png`,
+            handle: `@RaymondMach`,
+            profilePic: `images/portrait.jpg`,
             tweetText: replyInput.value,
         })
         render()
@@ -95,8 +96,8 @@ function handleTweetBtnClick(){
 
     if(tweetInput.value){
         tweetsData.unshift({
-            handle: `@Scrimba`,
-            profilePic: `images/scrimbalogo.png`,
+            handle: `@RaymondMach`,
+            profilePic: `images/portrait.jpg`,
             likes: 0,
             retweets: 0,
             tweetText: tweetInput.value,
@@ -130,7 +131,7 @@ function getFeedHtml(){
 
         let deleteIconClass = 'fa-solid fa-trash'
 
-        if (tweet.handle != '@Scrimba') {
+        if (tweet.handle != '@RaymondMach') {
             deleteIconClass = ''
         }
         
@@ -153,7 +154,7 @@ function getFeedHtml(){
             repliesHtml+=`
             <div>
                 <div class="tweet-input-area">
-                    <img src="images/scrimbalogo.png" class="profile-pic">
+                    <img src="images/portrait.jpg" class="profile-pic">
                     <textarea placeholder="Reply to tweet?" id="${tweet.uuid}"></textarea>
                 </div>
                 <button id="reply-btn" data-replybtn="${tweet.uuid}">Reply</button>
